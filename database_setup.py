@@ -24,7 +24,7 @@ class User(Base):
 class Pokemon_Category(Base):
 
     __tablename__ = 'pokemon_category'
-    category = Column(String(250), nullable=False)
+    category = Column(String(2500), nullable=False)
     id = Column(Integer, primary_key=True)
 
 
@@ -43,11 +43,11 @@ class Pokemon(Base):
 
     __tablename__ = 'pokemon_name'
 
-    name = Column(String(100), nullable=False)
+    name = Column(String(1000), nullable=False)
     id = Column(Integer, primary_key=True)
-    img = Column(String(100))
-    description = Column(String(500))
-    created_by = Column(String(200))
+    img = Column(String(1000))
+    description = Column(String(5000))
+    created_by = Column(String(2000))
     category_id = Column(Integer, ForeignKey('pokemon_category.id'))
     pokemon_category = relationship(Pokemon_Category)
 
