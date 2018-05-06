@@ -1,0 +1,186 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+    <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+    <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+  </head>
+    <body class="main">
+      <div class="container-fluid">
+        <!-- <nav class="navbar fixed-top ">
+
+        </nav> -->
+          <div class="row">
+            <div class="col-md-2 col-sm-4 block1">
+              <div class="row ">
+                <div class="col-md-12 col-sm-12 col-xs-12 category"><a href="{{url_for('pokemonMenu')}}">Category</a></div>
+                {% for i in pokemon %}
+                <div class="col-md-12 col-sm-12 col-xs-12 category get" ><a href="{{url_for('categoryMenu',category = i.id)}}">{{i.category}} Type</a></div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="col-md-10 col-sm-12 block2">
+              <div class="row heading">
+                <!-- <div class="col-md-12 heading"> -->
+                    <div class="col-sm-2 col-xs-2 ham">  <div class="hamburger"></div><div class="hamburger"></div><div class="hamburger" ></div>   </div>
+                    <div class="col-md-10 col-sm-6 col-xs-6 Catalogue">Catalogue</div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                        <div id="signinButton">
+                            <span class="g-signin"
+                              data-scope="openid email"
+                              data-clientid="304838015379-j8m8gpkug0v5j28c76d3s0l08rus5vm7.apps.googleusercontent.com"
+                              data-redirecturi="postmessage"
+                              data-accesstype="offline"
+                              data-cookiepolicy="single_host_origin"
+                              data-callback="signInCallback"
+                              data-approvalprompt="force">
+                            </span>
+                        </div>
+                        <div id="logOutButton">
+                          <button class="btn-md"><a href="{{url_for('gdisconnect')}}">Logout</a></button>
+
+                        </div>
+                    </div>
+                <!-- </div> -->
+              </div>
+              <div class="row ">
+
+            {% for j in items %}
+
+                <div class="col-md-3 col-lg-2 col-sm-4 col-xs-6">
+                  <div class="card values">
+                      <img class="img-fluid" src="{{j.img}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">{{j.name}}</h4>
+                      <p class="card-text">{{j.description}}</p>
+                      {% if login == 0 %}
+                        <div class="col-md-12 values icon"><a href="{{url_for('update',id=j.id)}}"><i class="fas fa-paint-brush " title="Edit"></i></a><i class="fas fa-trash-alt" title="Delete" data-toggle="modal" data-target="#myModal{{j.id}}"></i></div>
+                      {% else%}
+                        {% if j.created_by == token%}
+                          <div class="col-md-12 values tooltip1"><a href="{{url_for('update',id=j.id)}}"><i class="fas fa-paint-brush " title="Edit"></i></a><i class="fas fa-trash-alt " title="Delete" data-toggle="modal" data-target="#myModal{{j.id}}"></i></div>
+                        {% else %}
+                        <div class="col-md-12 values icon"><a href="{{url_for('update',id=j.id)}}"><i class="fas fa-paint-brush " title="Edit"></i></a><i class="fas fa-trash-alt " title="Delete" data-toggle="modal" data-target="#myModal{{j.id}}"></i></div>
+                        {% endif %}
+                      {% endif%}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal fade" id="myModal{{j.id}}" role="dialog">
+                    <div class="modal-dialog">
+                <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h2 class="modal-title"><p> Obliterate</p></h2>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure, you want to delete?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <a href="{{url_for('del_name',id=j.id)}}"><button type="button" class="btn btn-default">Yes</button></a>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+              </div>
+            </div>
+          </div>
+          <div class=" row flt">
+            <a href="{{url_for('add')}}" >
+            <span class="flt-action-button" id="tooltip" title="Add Pokemon">
+            <i class="flt-action-button__icon"></i></a>
+          </span></a>
+          </div>
+      </div>
+
+
+    <!-- Modal -->
+    <!-- data-toggle="modal" data-target="#myModal" -->
+
+      <script type="text/javascript">
+          $(document).ready(function(){
+
+
+
+          $(".icon").hide();
+          $("#tooltip").tooltip();
+          // $(".tooltip1").tooltip();
+
+            $(".get").mouseover(function(){
+              $(this).addClass("animated infinite pulse");
+            });
+            $(".get").mouseout(function(){
+              $(this).removeClass("animated infinite pulse");
+              $(this).css("background-color","transparent");
+            });
+            $("#logOutButton").hide();
+
+            if ({{login}}){
+              $("#signinButton").hide();
+              $("#logOutButton").show();
+            }
+            var slide= false;
+              $(".ham").click(function(){
+                if(slide){
+                  $(".block1").hide(2000);
+                  slide=false;
+                }
+                else{
+                  $(".block1").show(2000);
+                  slide=true;
+                }
+              });
+          });
+          function signInCallback(authResult){
+              if (authResult['code']) {
+                  // Hide the sign-in button now that the user is authorized
+                  $('#signinButton').attr('style', 'display: none');
+                  // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+                  $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{STATE}}',
+                    processData: false,
+                    data: authResult['code'],
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function(result) {
+                      // Handle or verify the server response if necessary.
+                        if (result) {
+                          $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                          console.log("logged in");
+                         setTimeout(function() {
+                           window.location.href = "/pokemons_Catalogue/";
+                        }, 1000);
+                        }
+                        else if (authResult['error']){
+                          console.log('There was an error: ' + authResult['error']);
+                        }
+                        else {
+                        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                         }
+                      }
+
+                  });
+              }
+            }
+      </script>
+    </body>
+</html>

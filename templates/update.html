@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+  </head>
+  <body>
+    <div style="background-image: url('https://yousillymommy.files.wordpress.com/2016/08/pokemon-ball-colors-simple-background-1440x900.png'); opacity: 0.5; height: 100%">  </div>
+    <div class="content">
+      <div class="car2d mb-3 mx-auto" style="max-width: 30rem; margin-top: 10rem; max-height: 20rem;">
+        <div class="card-header"><center><h1>Update Pokemon</h1> </center></div>
+
+          <div class="card-body">
+            <form action="{{url_for('update',id=items.id)}}" method='post' id='update'>
+              <p>Pokemon Name:
+                  <input type="text" size='30' name='name' placeholder="{{items.name}}" required>
+              </p>
+              <p> Image Url:
+                  <input type="text" size='30' name='image'placeholder="image url">
+              </p>
+              <p> Pokemon Description:
+                  <textarea rows="4" cols="50" name="comment" form="update"></textarea>
+              </p>
+                  <input type="submit" value='Submit'>
+            </form>
+          </div>
+          <div class="card-footer"></div>
+      </div>
+
+    </div>
+
+  <body>
+</html>
