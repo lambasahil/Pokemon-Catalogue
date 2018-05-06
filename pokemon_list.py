@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 
 from database_setup import Pokemon_Category, Base, Pokemon
 
-engine = create_engine('sqlite:///pokemonmenu.db')
+engine =  create_engine('postgresql://sahil:sahil@localhost/pokemon')
 
 # Bind the engine to the metadata of the Base class so that the
 # declaratives can be accessed through a DBSession instance

@@ -65,6 +65,7 @@ class Pokemon(Base):
         }
 
 
-engine = create_engine('sqlite:///pokemonmenu.db')
+
+engine =  create_engine('postgresql://sahil:sahil@localhost/pokemon')
 
 Base.metadata.create_all(engine)
