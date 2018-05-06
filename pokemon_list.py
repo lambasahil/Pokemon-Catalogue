@@ -37,7 +37,7 @@ for i in items:
 
 session.commit()
 
-print 'Previous database deleted'
+print ('Previous database deleted')
 
 # Menu for Electric pokemon
 
@@ -167,4 +167,4 @@ session.add(pokemon2)
 
 session.commit()
 
-print 'Added All pokemons!'
+print ('Added All pokemons!')
